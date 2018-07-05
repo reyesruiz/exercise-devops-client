@@ -38,7 +38,7 @@ Deployment consists of the following steps:
 5. Deploy the static assets.
 
 - To get the code, clone the repository.
-- To install the production dependencies, run the following command: `yarn install --production`.
+- To install the dependencies, run the following command: `yarn install`.
 - To configure the environment variables, create (or overwrite) the `.env.` file with the appropriate settings.
 - To build the application, run the following command: `yarn build`.
 - To deploy the static assets, FTP the contents of the `build` directory from step 4 to the appropriate destination.
