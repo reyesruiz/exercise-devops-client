@@ -11,10 +11,6 @@ pipeline {
 				sh 'npm install -g yarn'
 				sh 'yarn install --production'
 				sh 'yarn build' 
-			}
-		}
-		stage('Deploy') {
-			script {
 				sshagent(credentials: ['lightsail']) {
 					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com  kill  `ps auxw|grep http-server|grep client |grep 3000|awk '{print $2}'`'
 					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com  sleep 10 ; /usr/bin/nohup /usr/bin/http-server -p 3000 /opt/node_server/client/ &' 
