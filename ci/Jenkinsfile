@@ -11,15 +11,6 @@ pipeline {
 				sh 'npm install -g yarn'
 				sh 'yarn install --production'
 				sh 'yarn build' 
-				sshagent(credentials: ['lightsail']) {
-					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com \
-						"cd /opt/node_server/ ; \
-						pkill node ; \
-						sleep 10 ; \
-						rm -rf /opt/node_server/client/*'
-					sh 'scp -o StrictHostKeyChecking=no -r build/* centos@foobar.digitalruiz.com:/opt/node_server/client'
-					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com \
-						nohup /usr/bin/http-server -p 3000 /opt/node_server/client/ > /opt/node_server/client/log.out 2> /opt/node_server/client/log.err < /dev/null &"'
 				}
 			}
 		}
