@@ -34,6 +34,7 @@ pipeline {
 					sh 'scp -o StrictHostKeyChecking=no -r build/* centos@foobar.digitalruiz.com:/opt/node_server/client'
 					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com \
 						 "nohup /usr/bin/http-server -p 3000 /opt/node_server/client/ > /opt/node_server/client/log.out 2> /opt/node_server/client/log.err < /dev/null &"'
+				}
 			}
 		}
 	}
