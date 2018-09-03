@@ -12,7 +12,10 @@ pipeline {
 				sh 'yarn install --production'
 				sh 'yarn build' 
 				sshagent(credentials: ['lightsail']) {
-					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com  "cd /opt/node_server/ ; pkill -f \\"node /usr/bin/http-server -p 3000\\" >/dev/null 2>&1 ;nohup /usr/bin/http-server -p 3000 /opt/node_server/client/ > /opt/node_server/client/log.out 2> /opt/node_server/client/log.err < /dev/null &"' 
+					sh 'ssh -o StrictHostKeyChecking=no -l centos foobar.digitalruiz.com \
+						"cd /opt/node_server/ ; \
+						kill `ps auxw|grep /usr/bin/http-server|grep 3000|grep -v jenkins|grep -v grep|awk \\'{print $2}\\'`; \
+						nohup /usr/bin/http-server -p 3000 /opt/node_server/client/ > /opt/node_server/client/log.out 2> /opt/node_server/client/log.err < /dev/null &"'
 				}
 			}
 		}
