@@ -8,6 +8,7 @@ pipeline {
 	stages {
 		stage('Build') { 
 			steps {
+				sh 'apk add --no-cache openssh'
 				sh 'npm install -g yarn'
 				sh 'yarn install --production'
 				sh 'yarn build' 
